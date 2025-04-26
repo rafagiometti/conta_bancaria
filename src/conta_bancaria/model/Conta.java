@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 public class Conta {
 	
 	//Atributos da Classe
-	private int numero;
+	private int numero; 
 	private int agencia;
 	private int tipo;
 	private String titular;
