@@ -1,0 +1,13 @@
+package conta_bancaria;
+
+import conta_bancaria.util.Cores;
+
+public class Menu {
+
+	public static void main(String[] args) {
+		
+		System.out.println(Cores.TEXT_BLUE_BRIGHT + Cores.ANSI_BLACK_BACKGROUND_BRIGHT +"Olá, mundo!   ");
+		System.out.println(Cores.TEXT_RESET + "Olá turma JAVA 82");
+	}
+
+}
