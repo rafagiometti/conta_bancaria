@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 
 public class Conta {
 	
-	//Atributos da Classe
+	// Atributos da Classe
 	private int numero;
 	private int agencia;
 	private int tipo;
@@ -19,8 +19,10 @@ public class Conta {
 		this.titular = titular;
 		this.saldo = saldo;
 	}
+	
+	public Conta() {}
 
-	//Métodos Get e Set
+	// Métodos Get e Set
 	public int getNumero() {
 		return numero;
 	}
@@ -62,44 +64,46 @@ public class Conta {
 	}
 	
 	// Métodos Bancários
-	
 	public boolean sacar(float valor) {
-		if(this.saldo < valor) {
-			System.out.println("Saldo Insuficiente!");
+		if (this.saldo < valor) {
+			System.out.println("\n Saldo insuficiente!");
 			return false;
 		}
+		
 		this.setSaldo(this.saldo - valor);
 		return true;
+		
 	}
 	
 	public void depositar(float valor) {
 		this.saldo += valor;
-		
 	}
+	
+	
+	// Método para visualizar os dados da conta
 	public void visualizar() {
 		
 		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
 		
 		String tipo = "";
 		
-		switch (this.tipo) {
-			case 1 -> tipo = "Conta Corrente";
-			case 2 -> tipo ="Conta Poupança";
-			default -> tipo = "Inválido";
+		switch(this.tipo) {
+		  case 1 -> tipo = "Conta Corrente";
+		  case 2 -> tipo = "Conta Poupança";
+		  default -> tipo = "Inválido";
+		
+		
 		}
 		
-		System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
-		System.out.println("                   DADOS DA CONTA                    ");
-		System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
+		System.out.println("*************");
+		System.out.println("           DADOS DA CONTA            ");
+		System.out.println("-------------------------------------");
 		System.out.println("Número da Conta: " + this.numero);
 		System.out.println("Número da Agência: " + this.agencia);
-		System.out.println("Tipo da Conta: " + tipo);	
+		System.out.println("Tipo da Conta: " + tipo);
 		System.out.println("Titular da Conta: " + this.titular);
 		System.out.println("Saldo da Conta: " + nfMoeda.format(this.saldo));
-		
-
 	}
-	
-	}
+}
 	
 	

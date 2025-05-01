@@ -3,7 +3,9 @@ package conta_bancaria;
 import java.util.Scanner;
 
 import conta_bancaria.model.Conta;
+import conta_bancaria.model.ContaCorrente;
 import conta_bancaria.util.Cores;
+import conta_bancaria.model.ContaPoupanca;
 
 public class Menu {
 
@@ -26,6 +28,24 @@ public class Menu {
         //Alterar propriedade titular
         c1.setTitular("Aylla Scaglia");
         c1.visualizar();
+        
+        // Instanciando um objeto da classe conta corrente
+        ContaCorrente cc1 = new ContaCorrente(2, 456, 1, "Renata Negrini", 60000, 60000);
+        
+        cc1.visualizar();
+        
+        cc1.sacar(659000);
+        cc1.visualizar();
+        
+        cc1.depositar(50000);
+        cc1.visualizar();
+        
+        ContaPoupanca cp1 = new ContaPoupanca(5, 123, 2, "José", 100000.0f, 18);
+		cp1.visualizar();
+        cp1.sacar(1000.0f);
+		cp1.visualizar();
+		cp1.depositar(5000.0f);
+		cp1.visualizar();
             System.out.println(Cores.TEXT_GREEN_BRIGHT + Cores.ANSI_BLACK_BACKGROUND + "                                                     ");
             System.out.println("                BANCO DO BRAZIL COM Z                ");
             System.out.println("                                                     ");
