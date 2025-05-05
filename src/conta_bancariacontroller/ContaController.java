@@ -1,5 +1,6 @@
 package conta_bancariacontroller;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -57,56 +58,45 @@ public class ContaController implements ContaRepository {
 
     @Override
     public void sacar(int numero, float valor) {
-        Optional<Conta> contaOpt = buscarNaCollection(numero);
-        if (contaOpt.isPresent()) {
-            Conta conta = contaOpt.get();
-            if (conta.getSaldo() >= valor) {
-                conta.setSaldo(conta.getSaldo() - valor);
-                System.out.println("Saque realizado com sucesso!");
-            } else {
-                System.out.println("Saldo insuficiente para saque.");
-            }
-        } else {
-            System.out.println("Conta não encontrada.");
-        }
+    	
+    	NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+    	
+        Optional<Conta> conta = buscarNaCollection(numero);
+        if (conta.isPresent()) {
+            if(conta.get().sacar(valor) == true)
+            	System.out.printf("\n O saque no valor de %s, foi efetuado com sucesso", nfMoeda.format(valor));
+            } else 
+                System.out.printf("\n A conta número %d não foi encontrada", numero);
+            
     }
 
     @Override
     public void depositar(int numero, float valor) {
-        Optional<Conta> contaOpt = buscarNaCollection(numero);
-        if (contaOpt.isPresent()) {
-            Conta conta = contaOpt.get();
-            conta.setSaldo(conta.getSaldo() + valor);
-            System.out.println("Depósito realizado com sucesso!");
-        } else {
-            System.out.println("Conta não encontrada.");
-        }
+    	
+    	NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+        Optional<Conta> conta = buscarNaCollection(numero);
+        if (conta.isPresent()) {
+        	conta.get().depositar(valor);
+        	System.out.printf("\n O depósito no valor de %s", nfMoeda.format(valor));
+        } else 
+                System.out.printf("\n A conta número %d não foi encontrada", numero);
     }
 
     @Override
     public void transferir(int numeroOrigem, int numeroDestino, float valor) {
-        Optional<Conta> contaOrigemOpt = buscarNaCollection(numeroOrigem);
-        Optional<Conta> contaDestinoOpt = buscarNaCollection(numeroDestino);
-
-        if (contaOrigemOpt.isPresent() && contaDestinoOpt.isPresent()) {
-            Conta contaOrigem = contaOrigemOpt.get();
-            Conta contaDestino = contaDestinoOpt.get();
-
-            if (contaOrigem.getSaldo() >= valor) {
-                contaOrigem.setSaldo(contaOrigem.getSaldo() - valor);
-                contaDestino.setSaldo(contaDestino.getSaldo() + valor);
-                System.out.println("Transferência realizada com sucesso!");
-            } else {
-                System.out.println("Saldo insuficiente na conta de origem.");
-            }
-        } else {
-            if (contaOrigemOpt.isEmpty()) {
-                System.out.println("Conta de origem não encontrada!");
-            }
-            if (contaDestinoOpt.isEmpty()) {
-                System.out.println("Conta de destino não encontrada!");
-            }
-        }
+       NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+       Optional<Conta> contaOrigem = buscarNaCollection(numeroOrigem);
+       Optional<Conta> contaDestino = buscarNaCollection(numeroDestino);
+       
+       if(contaOrigem.isPresent() && contaDestino.isPresent()){
+    	   if (contaOrigem.get().sacar(valor)) {
+    		  contaDestino.get().depositar(valor); 
+    		  System.out.printf("\n A transferência no valor de %s, da conta %d para a conta %d foi efetuado com sucesso", nfMoeda.format(valor), numeroOrigem, numeroDestino);
+    		  
+    	  }
+       }else
+    	   System.out.printf("\n A conta numero %d não foi encontrada!", numero);
+       
     }
 
     public int gerarNumero() {
