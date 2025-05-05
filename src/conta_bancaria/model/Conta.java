@@ -2,7 +2,7 @@ package conta_bancaria.model;
 
 import java.text.NumberFormat;
 
-public class Conta {
+public abstract class Conta {
 	
 	// Atributos da Classe
 	private int numero;
@@ -95,7 +95,7 @@ public class Conta {
 		
 		}
 		
-		System.out.println("*************");
+		System.out.println("*************************************");
 		System.out.println("           DADOS DA CONTA            ");
 		System.out.println("-------------------------------------");
 		System.out.println("Número da Conta: " + this.numero);
